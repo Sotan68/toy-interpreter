@@ -40,10 +40,21 @@ public class Controller {
         return crtStmt.execute(state);
     }
 
+    public void allStep() throws MyException {
+        PrgState prg = repo.getCrtPrg();
+        if (prg == null) {
+            throw new StatementException("repository has no program state");
+        }
+        display(prg);
+        while (!prg.getExeStack().isEmpty()) {
+            oneStep(prg);
+            display(prg);
+        }
+    }
+
     public void display(PrgState state) {
-        if (displayFlag) {
+        if (displayFlag && state != null) {
             System.out.println(state);
         }
     }
 }
-
