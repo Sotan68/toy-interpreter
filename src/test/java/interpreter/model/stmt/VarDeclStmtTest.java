@@ -8,8 +8,10 @@ import interpreter.model.adt.MyList;
 import interpreter.model.adt.MyStack;
 import interpreter.model.type.BoolType;
 import interpreter.model.type.IntType;
+import interpreter.model.type.StringType;
 import interpreter.model.value.BoolValue;
 import interpreter.model.value.IntValue;
+import interpreter.model.value.StringValue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -42,6 +44,15 @@ class VarDeclStmtTest {
     }
 
     @Test
+    void declaresStringVariableWithDefaultValue() throws MyException {
+        IStmt decl = new VarDeclStmt("s", new StringType());
+        decl.execute(state);
+
+        assertTrue(state.getSymTable().isDefined("s"));
+        assertEquals(new StringValue(""), state.getSymTable().lookup("s"));
+    }
+
+    @Test
     void redeclaringVariableThrows() throws MyException {
         IStmt decl1 = new VarDeclStmt("x", new IntType());
         decl1.execute(state);
@@ -57,4 +68,3 @@ class VarDeclStmtTest {
         assertEquals("int x", decl.toString());
     }
 }
-

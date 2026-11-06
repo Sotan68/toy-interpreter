@@ -2,6 +2,7 @@ package interpreter.model.type;
 
 import interpreter.model.value.BoolValue;
 import interpreter.model.value.IntValue;
+import interpreter.model.value.StringValue;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,7 +25,17 @@ class TypeTest {
     }
 
     @Test
+    void stringTypeDefaultValueAndString() {
+        IType stringType = new StringType();
+        assertEquals(new StringValue(""), stringType.defaultValue());
+        assertEquals("string", stringType.toString());
+        assertEquals(new StringType(), stringType);
+    }
+
+    @Test
     void typesAreNotEqual() {
         assertNotEquals(new IntType(), new BoolType());
+        assertNotEquals(new IntType(), new StringType());
+        assertNotEquals(new BoolType(), new StringType());
     }
 }
