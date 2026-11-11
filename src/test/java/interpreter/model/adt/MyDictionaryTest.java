@@ -4,6 +4,8 @@ import interpreter.exceptions.ADTException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MyDictionaryTest {
@@ -39,5 +41,32 @@ class MyDictionaryTest {
     void updateMissingKeyThrows() {
         var ex = assertThrows(ADTException.class, () -> dict.update("missing", 99));
         assertTrue(ex.getMessage().contains("missing"));
+    }
+
+    @Test
+    void removeExistingKey() throws ADTException {
+        dict.put("x", 10);
+        assertTrue(dict.isDefined("x"));
+        dict.remove("x");
+        assertFalse(dict.isDefined("x"));
+        assertThrows(ADTException.class, () -> dict.lookup("x"));
+    }
+
+    @Test
+    void removeMissingKeyThrows() {
+        var ex = assertThrows(ADTException.class, () -> dict.remove("missing"));
+        assertTrue(ex.getMessage().contains("missing"));
+    }
+
+    @Test
+    void toMapReturnsImmutableContent() {
+        dict.put("a", 1);
+        dict.put("b", 2);
+        Map<String, Integer> map = dict.toMap();
+        assertEquals(2, map.size());
+        assertEquals(1, map.get("a"));
+        assertEquals(2, map.get("b"));
+        assertEquals(map, dict.getContent());
+        assertThrows(UnsupportedOperationException.class, () -> map.put("c", 3));
     }
 }

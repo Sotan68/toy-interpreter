@@ -37,7 +37,7 @@ class ControllerAllStepTest {
                 )
         );
 
-        PrgState state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), prg);
+        PrgState state = PrgState.of(prg);
         IRepository repo = new Repository(state);
         Controller controller = new Controller(repo, false);
 
@@ -66,7 +66,7 @@ class ControllerAllStepTest {
                 new AssignStmt("x", new ArithExp(ArithOp.DIV, new ValueExp(new IntValue(5)), new ValueExp(new IntValue(0))))
         );
 
-        PrgState state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), prg);
+        PrgState state = PrgState.of(prg);
         IRepository repo = new Repository(state);
         Controller controller = new Controller(repo, false);
 
@@ -77,7 +77,7 @@ class ControllerAllStepTest {
     @Test
     void allStepRunsWithDisplayFlagEnabled() throws MyException {
         IStmt prg = new VarDeclStmt("a", new IntType());
-        PrgState state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), prg);
+        PrgState state = PrgState.of(prg);
         IRepository repo = new Repository(state);
         Controller controller = new Controller(repo, true);
 

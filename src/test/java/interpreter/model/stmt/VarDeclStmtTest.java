@@ -22,7 +22,7 @@ class VarDeclStmtTest {
 
     @BeforeEach
     void setUp() {
-        state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), null);
+        state = PrgState.of(null);
     }
 
     @Test

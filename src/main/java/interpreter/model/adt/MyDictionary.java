@@ -36,8 +36,21 @@ public class MyDictionary<K, V> implements IDictionary<K, V> {
     }
 
     @Override
-    public Map<K, V> getContent() {
+    public void remove(K key) throws ADTException {
+        if (!map.containsKey(key)) {
+            throw new ADTException("key " + key + " is not defined in dictionary to remove");
+        }
+        map.remove(key);
+    }
+
+    @Override
+    public Map<K, V> toMap() {
         return Collections.unmodifiableMap(map);
+    }
+
+    @Override
+    public Map<K, V> getContent() {
+        return toMap();
     }
 
     @Override

@@ -16,8 +16,8 @@ class RepositoryTest {
 
     @BeforeEach
     void setUp() {
-        state1 = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), new NopStmt());
-        state2 = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), new NopStmt());
+        state1 = PrgState.of(new NopStmt());
+        state2 = PrgState.of(new NopStmt());
     }
 
     @Test

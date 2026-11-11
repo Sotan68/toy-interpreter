@@ -26,7 +26,7 @@ class ControllerOneStepTest {
 
     @BeforeEach
     void setUp() {
-        state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), null);
+        state = PrgState.of(null);
         repo = new Repository(state);
         controller = new Controller(repo, false);
     }

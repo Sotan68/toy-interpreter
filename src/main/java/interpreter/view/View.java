@@ -38,7 +38,7 @@ public class View {
 
     public void runProgram(IStmt program) {
         try {
-            PrgState state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), program);
+            PrgState state = PrgState.of(program);
             IRepository repo = new Repository(state);
             Controller controller = new Controller(repo, displayStepByStep);
             out.println("--- Starting execution ---");
