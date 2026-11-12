@@ -46,9 +46,11 @@ public class Controller {
             throw new StatementException("repository has no program state");
         }
         display(prg);
+        repo.logPrgStateExec(prg);
         while (!prg.getExeStack().isEmpty()) {
             oneStep(prg);
             display(prg);
+            repo.logPrgStateExec(prg);
         }
     }
 

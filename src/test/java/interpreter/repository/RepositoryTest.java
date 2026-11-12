@@ -44,5 +44,16 @@ class RepositoryTest {
         assertEquals(2, repo.getStates().size());
         assertSame(state1, repo.getCrtPrg());
     }
+
+    @Test
+    void logFilePathConstructorsWork() {
+        Repository repoWithLog = new Repository(state1, "log.txt");
+        assertEquals("log.txt", repoWithLog.getLogFilePath());
+        assertSame(state1, repoWithLog.getCrtPrg());
+
+        Repository repoPathOnly = new Repository("log2.txt");
+        assertEquals("log2.txt", repoPathOnly.getLogFilePath());
+        assertNull(repoPathOnly.getCrtPrg());
+    }
 }
 
