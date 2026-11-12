@@ -105,11 +105,11 @@ public final class Examples {
             )
     );
 
-    // Ex5 (A3): int v; v = 4; (if (v < 8) then print(v) else print(0))
+    // Ex5 (A3): int v; v = 5; (if (v < 8) then print(v) else print(0))  → prints 5
     public static final IStmt EX5 = new CompStmt(
             new VarDeclStmt("v", new IntType()),
             new CompStmt(
-                    new AssignStmt("v", new ValueExp(new IntValue(4))),
+                    new AssignStmt("v", new ValueExp(new IntValue(5))),
                     new IfStmt(
                             new RelationalExp(RelOp.LESS, new VarExp("v"), new ValueExp(new IntValue(8))),
                             new PrintStmt(new VarExp("v")),
