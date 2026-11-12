@@ -2,18 +2,25 @@ package interpreter.view;
 
 import interpreter.model.exp.ArithExp;
 import interpreter.model.exp.ArithOp;
+import interpreter.model.exp.RelationalExp;
+import interpreter.model.exp.RelOp;
 import interpreter.model.exp.ValueExp;
 import interpreter.model.exp.VarExp;
 import interpreter.model.stmt.AssignStmt;
+import interpreter.model.stmt.CloseRFileStmt;
 import interpreter.model.stmt.CompStmt;
-import interpreter.model.stmt.IStmt;
 import interpreter.model.stmt.IfStmt;
+import interpreter.model.stmt.IStmt;
+import interpreter.model.stmt.OpenRFileStmt;
 import interpreter.model.stmt.PrintStmt;
+import interpreter.model.stmt.ReadFileStmt;
 import interpreter.model.stmt.VarDeclStmt;
 import interpreter.model.type.BoolType;
 import interpreter.model.type.IntType;
+import interpreter.model.type.StringType;
 import interpreter.model.value.BoolValue;
 import interpreter.model.value.IntValue;
+import interpreter.model.value.StringValue;
 
 public final class Examples {
     private Examples() {}
@@ -65,5 +72,49 @@ public final class Examples {
                     )
             )
     );
-}
 
+    // Ex4 (A3): String fname; int r;
+    //   fname = "test.in";
+    //   openRFile(fname);
+    //   readFile(fname, r); print(r);
+    //   readFile(fname, r); print(r);
+    //   closeRFile(fname)
+    public static final IStmt EX4 = new CompStmt(
+            new VarDeclStmt("fname", new StringType()),
+            new CompStmt(
+                    new VarDeclStmt("r", new IntType()),
+                    new CompStmt(
+                            new AssignStmt("fname", new ValueExp(new StringValue("test.in"))),
+                            new CompStmt(
+                                    new OpenRFileStmt(new VarExp("fname")),
+                                    new CompStmt(
+                                            new ReadFileStmt(new VarExp("fname"), "r"),
+                                            new CompStmt(
+                                                    new PrintStmt(new VarExp("r")),
+                                                    new CompStmt(
+                                                            new ReadFileStmt(new VarExp("fname"), "r"),
+                                                            new CompStmt(
+                                                                    new PrintStmt(new VarExp("r")),
+                                                                    new CloseRFileStmt(new VarExp("fname"))
+                                                            )
+                                                    )
+                                            )
+                                    )
+                            )
+                    )
+            )
+    );
+
+    // Ex5 (A3): int v; v = 4; (if (v < 8) then print(v) else print(0))
+    public static final IStmt EX5 = new CompStmt(
+            new VarDeclStmt("v", new IntType()),
+            new CompStmt(
+                    new AssignStmt("v", new ValueExp(new IntValue(4))),
+                    new IfStmt(
+                            new RelationalExp(RelOp.LESS, new VarExp("v"), new ValueExp(new IntValue(8))),
+                            new PrintStmt(new VarExp("v")),
+                            new PrintStmt(new ValueExp(new IntValue(0)))
+                    )
+            )
+    );
+}

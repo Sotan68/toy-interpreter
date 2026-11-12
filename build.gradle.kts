@@ -24,6 +24,7 @@ application {
 
 tasks.named<JavaExec>("run") {
     standardInput = System.`in`
+    workingDir = rootProject.projectDir
 }
 
 tasks.named<Test>("test") {
