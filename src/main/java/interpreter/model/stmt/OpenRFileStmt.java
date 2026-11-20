@@ -23,7 +23,7 @@ public record OpenRFileStmt(IExp exp) implements IStmt {
         if (fileTable.isDefined(strVal)) {
             throw new StatementException("file " + fileName + " is already opened");
         }
-        try {
+        try { //creare buffedraeder si introducere in filetable
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             fileTable.put(strVal, br);
         } catch (IOException e) {

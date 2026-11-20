@@ -79,15 +79,12 @@ public class View {
     }
 
     private void printMenu() {
-        out.println("==================================================");
-        out.println("            Toy Language Interpreter              ");
-        out.println("==================================================");
+        out.println("Toy Language Interpreter");
         out.println("1. Run Example 1: int v; v = 2; print(v)");
         out.println("2. Run Example 2: int a; int b; a = 2 + 3 * 5; b = a + 1; print(b)");
         out.println("3. Run Example 3: bool a; int v; a = true; (if a then v = 2 else v = 3); print(v)");
         out.println("4. Toggle step-by-step display (currently " + (displayStepByStep ? "ON" : "OFF") + ")");
         out.println("0. Exit");
-        out.println("==================================================");
     }
 }
 

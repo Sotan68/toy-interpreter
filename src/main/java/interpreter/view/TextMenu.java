@@ -14,7 +14,7 @@ public class TextMenu {
     public void show() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("\n===== Toy Language Interpreter =====");
+            System.out.println("\nToy Language Interpreter");
             commands.values().forEach(System.out::println);
             System.out.print("Select option: ");
             String choice = scanner.nextLine().trim();

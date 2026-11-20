@@ -43,7 +43,7 @@ public class Main {
         menu.addCommand(new RunExampleCommand("4", "string fname; int r; open/read/close file", ctrl4));
         menu.addCommand(new RunExampleCommand("5", "int v; v=4; if (v<8) then print(v) else print(0)", ctrl5));
         menu.addCommand(new ExitCommand("0", "Exit"));
-
+ 
         menu.show();
     }
 }

@@ -26,9 +26,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ExamplesTest {
 
-    // -------------------------------------------------------------------------
-    // Ex4 helpers
-    // -------------------------------------------------------------------------
+
+    // Ex4 helpe
 
     /** Builds the Ex4 program using the given absolute file path string. */
     private static IStmt ex4WithPath(String filePath) {
@@ -65,9 +64,9 @@ class ExamplesTest {
         return new Controller(repo);
     }
 
-    // -------------------------------------------------------------------------
+
     // Ex4 — file with 15 and 50
-    // -------------------------------------------------------------------------
+
 
     @Test
     void ex4PrintsFifteenAndFifty(@TempDir Path tmpDir) throws MyException, IOException {
@@ -83,9 +82,8 @@ class ExamplesTest {
         assertEquals(new IntValue(50), out.get(1));
     }
 
-    // -------------------------------------------------------------------------
+
     // Ex4 — empty file → 0, 0
-    // -------------------------------------------------------------------------
 
     @Test
     void ex4PrintsZeroZeroForEmptyFile(@TempDir Path tmpDir) throws MyException, IOException {
@@ -101,9 +99,9 @@ class ExamplesTest {
         assertEquals(new IntValue(0), out.get(1));
     }
 
-    // -------------------------------------------------------------------------
+
     // Ex5 — prints 5
-    // -------------------------------------------------------------------------
+
 
     @Test
     void ex5PrintsFive() throws MyException {
@@ -115,9 +113,9 @@ class ExamplesTest {
         assertEquals(new IntValue(5), out.get(0));
     }
 
-    // -------------------------------------------------------------------------
+
     // Ex5 — else branch: value >= 8 prints 0
-    // -------------------------------------------------------------------------
+
 
     @Test
     void ex5PrintsZeroWhenConditionFalse() throws MyException {

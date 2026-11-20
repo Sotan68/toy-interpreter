@@ -22,12 +22,14 @@ public record CloseRFileStmt(IExp exp) implements IStmt {
         if (!fileTable.isDefined(strVal)) {
             throw new StatementException("file " + fileName + " is not opened in FileTable");
         }
+        //finds reader in filetable
         BufferedReader br = fileTable.lookup(strVal);
         try {
             br.close();
         } catch (IOException e) {
             throw new StatementException("could not close file " + fileName + ": " + e.getMessage());
         }
+        //close & remove it from filetable
         fileTable.remove(strVal);
         return state;
     }

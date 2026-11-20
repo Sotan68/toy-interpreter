@@ -44,6 +44,7 @@ public record ReadFileStmt(IExp exp, String varName) implements IStmt {
                     throw new StatementException("file content is not a valid integer: " + line);
                 }
             }
+            //update in symtable
             symTable.update(varName, new IntValue(intVal));
         } catch (IOException e) {
             throw new StatementException("could not read from file " + fileName + ": " + e.getMessage());
