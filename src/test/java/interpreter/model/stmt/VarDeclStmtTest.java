@@ -8,9 +8,11 @@ import interpreter.model.adt.MyList;
 import interpreter.model.adt.MyStack;
 import interpreter.model.type.BoolType;
 import interpreter.model.type.IntType;
+import interpreter.model.type.RefType;
 import interpreter.model.type.StringType;
 import interpreter.model.value.BoolValue;
 import interpreter.model.value.IntValue;
+import interpreter.model.value.RefValue;
 import interpreter.model.value.StringValue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -66,5 +68,21 @@ class VarDeclStmtTest {
     void toStringFormatsCorrectly() {
         IStmt decl = new VarDeclStmt("x", new IntType());
         assertEquals("int x", decl.toString());
+    }
+
+    @Test
+    void declaresRefVariableWithNullReference() throws MyException {
+        IStmt decl = new VarDeclStmt("r", new RefType(new IntType()));
+        decl.execute(state);
+
+        assertEquals(new RefValue(0, new IntType()), state.getSymTable().lookup("r"));
+        assertEquals("Ref(int) r", decl.toString());
+    }
+
+    @Test
+    void declaresNestedRefVariableWithNullReference() throws MyException {
+        new VarDeclStmt("r", new RefType(new RefType(new IntType()))).execute(state);
+
+        assertEquals(new RefValue(0, new RefType(new IntType())), state.getSymTable().lookup("r"));
     }
 }

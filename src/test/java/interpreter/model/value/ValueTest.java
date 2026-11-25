@@ -2,6 +2,7 @@ package interpreter.model.value;
 
 import interpreter.model.type.BoolType;
 import interpreter.model.type.IntType;
+import interpreter.model.type.RefType;
 import interpreter.model.type.StringType;
 import org.junit.jupiter.api.Test;
 
@@ -47,5 +48,19 @@ class ValueTest {
         assertNotEquals(s1, s3);
         assertNotEquals(s1.hashCode(), s3.hashCode());
         assertNotEquals(s1, new IntValue(42));
+    }
+
+    @Test
+    void refValueBehavior() {
+        RefValue ref = new RefValue(1, new IntType());
+
+        assertEquals(1, ref.address());
+        assertEquals(new IntType(), ref.locationType());
+        assertEquals(new RefType(new IntType()), ref.getType());
+        assertEquals("(1, int)", ref.toString());
+        assertEquals("(2, Ref(int))", new RefValue(2, new RefType(new IntType())).toString());
+        assertEquals(new RefValue(1, new IntType()), ref);
+        assertNotEquals(new RefValue(2, new IntType()), ref);
+        assertNotEquals(new RefValue(1, new BoolType()), ref);
     }
 }
