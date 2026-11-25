@@ -2,9 +2,11 @@ package interpreter.model;
 
 import interpreter.exceptions.ADTException;
 import interpreter.model.adt.IDictionary;
+import interpreter.model.adt.IHeap;
 import interpreter.model.adt.IList;
 import interpreter.model.adt.IStack;
 import interpreter.model.adt.MyDictionary;
+import interpreter.model.adt.MyHeap;
 import interpreter.model.adt.MyList;
 import interpreter.model.adt.MyStack;
 import interpreter.model.stmt.IStmt;
@@ -96,5 +98,29 @@ class PrgStateTest {
         assertTrue(repr.contains("SymTable: {x -> 10}"));
         assertTrue(repr.contains("Out: {20}"));
         assertTrue(repr.contains("FileTable: {}"));
+    }
+
+    @Test
+    void ofFactoryMethodCreatesEmptyHeap() {
+        PrgState state = PrgState.of(program);
+
+        assertNotNull(state.getHeap());
+        assertTrue(state.getHeap().getContent().isEmpty());
+    }
+
+    @Test
+    void constructorStoresTheGivenHeap() {
+        IHeap heap = new MyHeap();
+        PrgState state = new PrgState(exeStack, symTable, out, fileTable, heap, program);
+
+        assertSame(heap, state.getHeap());
+    }
+
+    @Test
+    void toStringListsHeapAfterFileTable() {
+        PrgState state = PrgState.of(program);
+        state.getHeap().allocate(new IntValue(20));
+
+        assertTrue(state.toString().endsWith("FileTable: {}\nHeap:\n1 --> 20\n"));
     }
 }

@@ -12,6 +12,7 @@ import interpreter.model.stmt.PrintStmt;
 import interpreter.model.stmt.VarDeclStmt;
 import interpreter.model.type.IntType;
 import interpreter.model.value.IntValue;
+import interpreter.model.value.RefValue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -92,5 +93,19 @@ class LogFileTest {
         assertDoesNotThrow(() -> repo.logPrgStateExec());
         assertDoesNotThrow(() -> repo.logPrgStateExec(state));
     }
-}
 
+    @Test
+    void logContainsHeapSectionAfterFileTable(@TempDir Path tempDir) throws IOException, MyException {
+        Path logPath = tempDir.resolve("heap_log.txt");
+        PrgState state = PrgState.of(null);
+        state.getHeap().allocate(new IntValue(20));
+        state.getHeap().allocate(new RefValue(1, new IntType()));
+        IRepository repo = new Repository(state, logPath.toString());
+
+        repo.logPrgStateExec();
+
+        String content = Files.readString(logPath);
+        assertTrue(content.indexOf("FileTable") < content.indexOf("Heap:"));
+        assertTrue(content.contains("Heap:\n1 --> 20\n2 --> (1, int)\n"));
+    }
+}
