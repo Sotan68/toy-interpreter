@@ -13,7 +13,7 @@ import java.io.IOException;
 public record CloseRFileStmt(IExp exp) implements IStmt {
     @Override
     public PrgState execute(PrgState state) throws MyException {
-        IValue val = exp.eval(state.getSymTable());
+        IValue val = exp.eval(state.getSymTable(), state.getHeap());
         if (!(val instanceof StringValue(String fileName))) {
             throw new StatementException("file name expression is not a string");
         }
