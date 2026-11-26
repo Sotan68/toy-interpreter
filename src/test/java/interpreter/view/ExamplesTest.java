@@ -9,8 +9,10 @@ import interpreter.model.exp.ValueExp;
 import interpreter.model.exp.VarExp;
 import interpreter.model.stmt.*;
 import interpreter.model.type.IntType;
+import interpreter.model.type.RefType;
 import interpreter.model.type.StringType;
 import interpreter.model.value.IntValue;
+import interpreter.model.value.RefValue;
 import interpreter.model.value.StringValue;
 import interpreter.repository.Repository;
 import org.junit.jupiter.api.Test;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
 import static interpreter.view.Examples.EX5;
 import static org.junit.jupiter.api.Assertions.*;
@@ -139,5 +142,46 @@ class ExamplesTest {
         assertEquals(1, out.size());
         assertEquals(new IntValue(0), out.get(0));
     }
-}
 
+    // Ex6–Ex10 — expected results from the A4 sheet, section 1.4
+
+    private static PrgState run(IStmt program) throws MyException {
+        Controller ctrl = controllerFor(program);
+        ctrl.allStep();
+        return ctrl.getRepo().getCrtPrg();
+    }
+
+    @Test
+    void ex6PrintsTheReferencesAndFillsTheHeap() throws MyException {
+        PrgState state = run(Examples.EX6);
+
+        assertEquals("{(1, int), (2, Ref(int))}", state.getOut().toString());
+        assertEquals(new RefValue(1, new IntType()), state.getSymTable().lookup("v"));
+        assertEquals(new RefValue(2, new RefType(new IntType())), state.getSymTable().lookup("a"));
+        assertEquals(Map.of(1, new IntValue(20), 2, new RefValue(1, new IntType())),
+                state.getHeap().getContent());
+    }
+
+    @Test
+    void ex7ReadsThroughTheHeap() throws MyException {
+        assertEquals("{20, 25}", run(Examples.EX7).getOut().toString());
+    }
+
+    @Test
+    void ex8WritesTheHeap() throws MyException {
+        PrgState state = run(Examples.EX8);
+
+        assertEquals("{20, 35}", state.getOut().toString());
+        assertEquals(Map.of(1, new IntValue(30)), state.getHeap().getContent());
+    }
+
+    @Test
+    void ex9PrintsTwentyWithTheSafeGarbageCollector() throws MyException {
+        assertEquals("{20}", run(Examples.EX9).getOut().toString());
+    }
+
+    @Test
+    void ex10CountsDownToZero() throws MyException {
+        assertEquals("{4, 3, 2, 1, 0}", run(Examples.EX10).getOut().toString());
+    }
+}
