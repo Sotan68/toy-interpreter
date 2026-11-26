@@ -14,52 +14,52 @@ public class Main {
         // Example 1
         PrgState state1 = PrgState.of(EX1);
         Repository repo1 = new Repository(state1, "log1.txt");
-        Controller ctrl1 = new Controller(repo1);
+        Controller ctrl1 = new Controller(repo1, true);
 
         // Example 2
         PrgState state2 = PrgState.of(EX2);
         Repository repo2 = new Repository(state2, "log2.txt");
-        Controller ctrl2 = new Controller(repo2);
+        Controller ctrl2 = new Controller(repo2, true);
 
         // Example 3
         PrgState state3 = PrgState.of(EX3);
         Repository repo3 = new Repository(state3, "log3.txt");
-        Controller ctrl3 = new Controller(repo3);
+        Controller ctrl3 = new Controller(repo3, true);
 
         // Example 4 — requires "test.in" to exist in the working directory
         PrgState state4 = PrgState.of(EX4);
         Repository repo4 = new Repository(state4, "log4.txt");
-        Controller ctrl4 = new Controller(repo4);
+        Controller ctrl4 = new Controller(repo4, true);
 
         // Example 5 — relational expression with if
         PrgState state5 = PrgState.of(EX5);
         Repository repo5 = new Repository(state5, "log5.txt");
-        Controller ctrl5 = new Controller(repo5);
+        Controller ctrl5 = new Controller(repo5, true);
 
         // Example 6 — heap allocation
         PrgState state6 = PrgState.of(EX6);
         Repository repo6 = new Repository(state6, "log6.txt");
-        Controller ctrl6 = new Controller(repo6);
+        Controller ctrl6 = new Controller(repo6, true);
 
         // Example 7 — heap reading
         PrgState state7 = PrgState.of(EX7);
         Repository repo7 = new Repository(state7, "log7.txt");
-        Controller ctrl7 = new Controller(repo7);
+        Controller ctrl7 = new Controller(repo7, true);
 
         // Example 8 — heap writing
         PrgState state8 = PrgState.of(EX8);
         Repository repo8 = new Repository(state8, "log8.txt");
-        Controller ctrl8 = new Controller(repo8);
+        Controller ctrl8 = new Controller(repo8, true);
 
         // Example 9 — garbage collector
         PrgState state9 = PrgState.of(EX9);
         Repository repo9 = new Repository(state9, "log9.txt");
-        Controller ctrl9 = new Controller(repo9);
+        Controller ctrl9 = new Controller(repo9, true);
 
         // Example 10 — while loop
         PrgState state10 = PrgState.of(EX10);
         Repository repo10 = new Repository(state10, "log10.txt");
-        Controller ctrl10 = new Controller(repo10);
+        Controller ctrl10 = new Controller(repo10, true);
 
         TextMenu menu = new TextMenu();
         menu.addCommand(new RunExampleCommand("1", "int v; v=2; print(v)", ctrl1));

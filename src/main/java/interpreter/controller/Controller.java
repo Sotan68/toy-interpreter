@@ -45,15 +45,19 @@ public class Controller {
         if (prg == null) {
             throw new StatementException("repository has no program state");
         }
-        display(prg);
-        repo.logPrgStateExec(prg);
+        logAndDisplay(prg);
         while (!prg.getExeStack().isEmpty()) {
             oneStep(prg);
-            repo.logPrgStateExec(prg); // before the garbage collection
+            logAndDisplay(prg); // before the garbage collection
             collectGarbage(prg);
-            repo.logPrgStateExec(prg); // after the garbage collection
-            display(prg);
+            logAndDisplay(prg); // after the garbage collection
         }
+    }
+
+    // writes the state to the log file and, if displayFlag is set, to the console
+    private void logAndDisplay(PrgState state) throws MyException {
+        repo.logPrgStateExec(state);
+        display(state);
     }
 
     private void collectGarbage(PrgState state) {

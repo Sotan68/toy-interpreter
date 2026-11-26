@@ -42,7 +42,7 @@ class RelationalExpTest {
         assertEquals(new BoolValue(false), falseExpEqual.eval(symTable, heap));
 
         IExp falseExpGreater = new RelationalExp(RelOp.LESS, num(3), num(2));
-        assertEquals(new BoolValue(false), falseExpGreater.eval(symTaggble, heap));
+        assertEquals(new BoolValue(false), falseExpGreater.eval(symTable, heap));
     }
 
     @Test
